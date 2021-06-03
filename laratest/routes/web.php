@@ -18,14 +18,16 @@ Route::get('/', function () {
 });
 
 
-Route::get('/login', function(){
-	return view('login');
-});
-
-Route::post('/login', function(){
-	echo "posted";
-});
+Route::get('/login', ['uses'=> 'LoginController@index']);
+//Route::get('/login', [LoginController::class,'index']); for v8
+Route::post('/login', 'LoginController@verify');
 
 Route::get('/register', function(){
 	echo "this is signup page";
 });
+
+Route::post('/register', function(){
+	echo "this is signup page";
+});
+
+Route::get('/home', 'HomeController@index');
