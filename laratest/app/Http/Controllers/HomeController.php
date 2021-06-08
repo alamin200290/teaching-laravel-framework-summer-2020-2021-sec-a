@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
         // check session or cookie
         //return view('home.index')->with('id', '123');
         // return view('home.index')
@@ -15,7 +15,15 @@ class HomeController extends Controller
         //return view('home.index', ['id'=>123, 'name'=>'alamin']);
 
         $id = '890';
-        $name = 'MD.Al-Amin';
-        return view('home.index', compact('id', 'name'));
+        $name = $req->session()->get('uname');
+
+        if($req->session()->has('uname')){
+            return view('home.index', compact('id', 'name'));
+        }else{
+            $req->session()->flash('msg', 'Invalid request');
+            return redirect('/login');
+        }
+
+      
     }
 }

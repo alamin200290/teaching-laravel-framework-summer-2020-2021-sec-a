@@ -12,11 +12,28 @@ class LoginController extends Controller
 
     public function verify(Request $req){
         //dd($req);
+         $req->session()->put('uname', $req->uname);
+        // $req->session()->put('password', $req->password);
+        // //$uname = $req->session()->get('uname');
+        // $req->session()->flush();
+        // $req->session()->forget('uname');
+        // $uname = $req->session()->pull('uname');
+        // $req->session()->has('uname');
+        
+        // $req->session()->flash('cgpa', '4');
+        // $req->session()->flash('mode', 'abc');
+        // $cgpa = $req->session()->get('cgpa');
+        // $req->session()->keep('cgpa');
+        // $req->session()->reflash();
+
         if($req->uname == $req->password){
             //set session or cookie
             return redirect('/home');
         }else{
-            echo "invalid user!";
+            
+            $req->session()->flash('msg', 'Invalid username or password!');
+            return redirect('/login');
+            //return view('login.index');
         }
         
     }

@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-    	
     echo "Test request";
     //return view('welcome');
 });
@@ -30,10 +29,13 @@ Route::post('/register', function(){
 	echo "this is signup page";
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', ['as'=>'home.index','uses'=>'HomeController@index']);
+//Route::get('/home', 'HomeController@index')->name('home.index');
 Route::get('/logout', 'LogoutController@index');
 
-Route::get('/user/create', 'UserController@create');
+Route::get('/user/create', 'UserController@create')->name('user.create');
+Route::post('/user/create', 'UserController@insert')->name('user.insert');
+
 Route::get('/user/list', 'UserController@list');
 
 Route::get('/user/details/{id}', 'UserController@details');

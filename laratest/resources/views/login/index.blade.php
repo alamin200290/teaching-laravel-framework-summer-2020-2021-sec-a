@@ -5,6 +5,9 @@
 </head>
 <body>
 	<form method="post">
+		{{-- @csrf --}}
+		{{-- {{csrf_field()}} --}}
+		<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<table>
 		<tr>
 			<td>Name</td>
@@ -16,10 +19,15 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="submit" name="Submit" value="submit"></td>
+			<td>
+			<input type="submit" name="Submit" value="submit">
+			<a href="/register"> Signup</a>
+			</td>
 		</tr>
 	</table>
 	</form>
-	<a href="/register"> Signup</a>
+	
+	<br>
+	{{session('msg')}}
 </body>
 </html>
