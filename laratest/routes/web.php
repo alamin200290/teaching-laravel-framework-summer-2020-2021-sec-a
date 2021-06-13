@@ -30,12 +30,13 @@ Route::group(['middleware'=>['sess']], function(){
     Route::get('/user/list', 'UserController@list');
     Route::get('/user/details/{id}', 'UserController@details');
 
-    Route::get('/user/create', 'UserController@create')->name('user.create');
-    Route::post('/user/create', 'UserController@insert')->name('user.insert');
-    Route::get('/user/edit/{id}', 'UserController@edit');
-    Route::post('/user/edit/{id}', 'UserController@update');
-    Route::get('/user/delete/{id}', 'UserController@delete');
-    Route::post('/user/delete/{id}', 'UserController@destroy');
+    Route::group(['middleware'=>['type']], function(){
+        Route::get('/user/create', 'UserController@create')->name('user.create');
+        Route::post('/user/create', 'UserController@insert')->name('user.insert');
+        Route::get('/user/edit/{id}', 'UserController@edit');
+        Route::post('/user/edit/{id}', 'UserController@update');
+        Route::get('/user/delete/{id}', 'UserController@delete');
+        Route::post('/user/delete/{id}', 'UserController@destroy');
+    });
+    
 });
-
-

@@ -29,5 +29,7 @@
 	
 	<br>
 	{{session('msg')}}
+	<br>
+	
 </body>
 </html>
