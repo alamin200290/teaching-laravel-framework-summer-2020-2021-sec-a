@@ -20,26 +20,22 @@ Route::get('/', function () {
 Route::get('/login', ['uses'=> 'LoginController@index']);
 //Route::get('/login', [LoginController::class,'index']); for v8
 Route::post('/login', 'LoginController@verify');
-
-Route::get('/register', function(){
-	echo "this is signup page";
-});
-
-Route::post('/register', function(){
-	echo "this is signup page";
-});
-
-Route::get('/home', ['as'=>'home.index','uses'=>'HomeController@index']);
-//Route::get('/home', 'HomeController@index')->name('home.index');
 Route::get('/logout', 'LogoutController@index');
 
-Route::get('/user/create', 'UserController@create')->name('user.create');
-Route::post('/user/create', 'UserController@insert')->name('user.insert');
+Route::group(['middleware'=>['sess']], function(){
 
-Route::get('/user/list', 'UserController@list');
+    Route::get('/home', ['as'=>'home.index','uses'=>'HomeController@index'])->middleware('sess');
+    //Route::get('/home', 'HomeController@index')->name('home.index');
 
-Route::get('/user/details/{id}', 'UserController@details');
-Route::get('/user/edit/{id}', 'UserController@edit');
-Route::post('/user/edit/{id}', 'UserController@update');
-Route::get('/user/delete/{id}', 'UserController@delete');
-Route::post('/user/delete/{id}', 'UserController@destroy');
+    Route::get('/user/list', 'UserController@list');
+    Route::get('/user/details/{id}', 'UserController@details');
+
+    Route::get('/user/create', 'UserController@create')->name('user.create');
+    Route::post('/user/create', 'UserController@insert')->name('user.insert');
+    Route::get('/user/edit/{id}', 'UserController@edit');
+    Route::post('/user/edit/{id}', 'UserController@update');
+    Route::get('/user/delete/{id}', 'UserController@delete');
+    Route::post('/user/delete/{id}', 'UserController@destroy');
+});
+
+
