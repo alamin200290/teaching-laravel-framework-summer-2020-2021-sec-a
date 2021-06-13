@@ -26,6 +26,18 @@ class LoginController extends Controller
         // $req->session()->keep('cgpa');
         // $req->session()->reflash();
 
+        $validation = Validator::make($req->all(), [
+            'uname'=> 'required|min:5',
+            'password'=> 'required'
+        ]);
+
+        if($validation->fails()){
+            //return redirect('/login')->with('errors', $validation->errors());
+            return back()
+                    ->with('errors', $validation->errors())
+                    ->withInput();
+        }
+
         if($req->uname == $req->password){
             $req->session()->put('uname', $req->uname);
             //set session or cookie
