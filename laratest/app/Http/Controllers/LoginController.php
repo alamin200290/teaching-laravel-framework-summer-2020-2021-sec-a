@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Validator;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -49,7 +50,14 @@ class LoginController extends Controller
         //             ->withInput();
         // }
 
-        if($req->uname == $req->password){
+        //$result = User::all();
+        //dd($result);
+        //print_r($result[0]->username);
+        $result = User::where('username', $req->uname)
+                        ->where('password', $req->password)
+                        ->first();
+
+        if(count($result) > 0){
             $req->session()->put('uname', $req->uname);
             //set session or cookie
             return redirect('/home');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
@@ -15,27 +16,52 @@ class UserController extends Controller
         return view('user.create');
     }
 
+    public function insert(Request $req){
+        $user = new User;
+        $user->username     = $req->username; 
+        $user->name         = $req->name; 
+        $user->cgpa         = $req->cgpa; 
+        $user->password     = $req->password; 
+        $user->type         = 'admin'; 
+        $user->dept         = 'CSE'; 
+        $user->profile_img  = '';
+        $user->save();
+
+        return redirect()->route('user.list');
+    }
+
     public function details($id){
         
-        $users = $this->getUserList();
-        $user = '';
+        // $users = $this->getUserList();
+        // $user = '';
 
-        foreach($users as $u){
-            if($u['id'] == $id){
-                $user = $u;
-                break;
-            }
-        }
+        // foreach($users as $u){
+        //     if($u['id'] == $id){
+        //         $user = $u;
+        //         break;
+        //     }
+        // }
         //$user= ['id'=>1, 'name'=>'alamin', 'password'=>'123', 'email'=>'aa@aiub.edu','type'=>'user'];
+
+        $user = User::find($id);
+
         return view('user.details')->with('user', $user);
     }
 
     public function edit($id){
-        echo $id;
+        $user = User::find($id);
+        return view('user.edit')->with('user', $user);
     }
 
     public function update(Request $req, $id){
-        echo $id;
+        $user= User::find($id);
+        $user->username = $req->username;
+        $user->password = $req->password;
+        $user->name = $req->name;
+        $user->cgpa = $req->cgpa;
+        $user->save();
+
+        return redirect()->route('user.list');
     }
 
     public function delete($id){
@@ -47,7 +73,7 @@ class UserController extends Controller
     }
 
     public function list(){
-        $users = $this->getUserList();
+        $users = User::all();
         return view('user.userlist')->with('userlist', $users);
     }
 

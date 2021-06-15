@@ -27,7 +27,7 @@ Route::group(['middleware'=>['sess']], function(){
     Route::get('/home', ['as'=>'home.index','uses'=>'HomeController@index'])->middleware('sess');
     //Route::get('/home', 'HomeController@index')->name('home.index');
 
-    Route::get('/user/list', 'UserController@list');
+    Route::get('/user/list', 'UserController@list')->name('user.list');
     Route::get('/user/details/{id}', 'UserController@details');
 
     Route::group(['middleware'=>['type']], function(){
