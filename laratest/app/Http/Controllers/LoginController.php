@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Validator;
 
 class LoginController extends Controller
@@ -11,7 +12,7 @@ class LoginController extends Controller
         return view('login.index');
     }
 
-    public function verify(Request $req){
+    public function verify(UserRequest $req){
         //dd($req);
         
         // $req->session()->put('password', $req->password);
@@ -26,17 +27,27 @@ class LoginController extends Controller
         // $req->session()->keep('cgpa');
         // $req->session()->reflash();
 
-        $validation = Validator::make($req->all(), [
-            'uname'=> 'required|min:5',
-            'password'=> 'required'
-        ]);
+        // $req->validate([
+        //         'uname'=> 'required|min:5',
+        //         'password'=> 'required'
+        // ])->validate();
 
-        if($validation->fails()){
-            //return redirect('/login')->with('errors', $validation->errors());
-            return back()
-                    ->with('errors', $validation->errors())
-                    ->withInput();
-        }
+        // $this->validate($req, [
+        //     'uname'=> 'required|min:5',
+        //     'password'=> 'required'
+        // ])->validate();
+
+        // $validation = Validator::make($req->all(), [
+        //     'uname'=> 'required|min:5',
+        //     'password'=> 'required'
+        // ]);
+
+        // if($validation->fails()){
+        //     //return redirect('/login')->with('errors', $validation->errors());
+        //     return back()
+        //             ->with('errors', $validation->errors())
+        //             ->withInput();
+        // }
 
         if($req->uname == $req->password){
             $req->session()->put('uname', $req->uname);
