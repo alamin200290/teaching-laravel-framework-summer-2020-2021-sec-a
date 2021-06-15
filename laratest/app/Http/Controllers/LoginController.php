@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Validator;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -53,7 +54,12 @@ class LoginController extends Controller
         //$result = User::all();
         //dd($result);
         //print_r($result[0]->username);
-        $result = User::where('username', $req->uname)
+        // $result = User::where('username', $req->uname)
+        //                 ->where('password', $req->password)
+        //                 ->first();
+
+        $result = DB::table('users')
+                        ->where('username', $req->uname)
                         ->where('password', $req->password)
                         ->first();
 
