@@ -58,13 +58,13 @@ class LoginController extends Controller
         //                 ->where('password', $req->password)
         //                 ->first();
 
-        $result = DB::table('users')
-                        ->where('username', $req->uname)
+        $result = DB::table('user_table')
+                        ->where('username', $req->username)
                         ->where('password', $req->password)
                         ->first();
 
         if(count($result) > 0){
-            $req->session()->put('uname', $req->uname);
+            $req->session()->put('uname', $req->username);
             //set session or cookie
             return redirect('/home');
         }else{

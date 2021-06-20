@@ -24,15 +24,14 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-                'uname'=> 'required|min:5',
-                'password'=> 'required'
+                'username'=> 'required',
+                'password'=> 'required|min:5'
         ];
     }
 
     public function messages(){
         return [
             'uname.required' => 'cant left empty...',
-            'uname.min' => 'at least 5 char ...',
             'password.required'=> 'test message ...'
         ];
     }

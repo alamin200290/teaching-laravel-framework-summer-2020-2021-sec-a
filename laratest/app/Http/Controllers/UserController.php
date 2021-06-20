@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
 
+    //router
+    //controller
+    //model
+    //middleware
+    //requests
+    
     public function index(){
        
     }
@@ -16,7 +23,7 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function insert(Request $req){
+    public function insert(UserRequest $req){
         $user = new User;
         $user->username     = $req->username; 
         $user->name         = $req->name; 

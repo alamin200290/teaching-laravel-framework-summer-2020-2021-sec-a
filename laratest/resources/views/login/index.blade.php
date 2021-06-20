@@ -11,7 +11,7 @@
 	<table>
 		<tr>
 			<td>Name</td>
-			<td><input type="text" name="uname" value="{{old('uname')}}"></td>
+			<td><input type="text" name="username" value="{{old('username')}}"></td>
 		</tr>
 		<tr>
 			<td>Password</td>
