@@ -9,7 +9,7 @@
   
     <h3> Create New User</h3>
 
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 		@csrf
 	<table>
 		<tr>
@@ -27,6 +27,10 @@
         <tr>
 			<td>Cgpa</td>
 			<td><input type="text" name="cgpa"></td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td><input type="file" name="image"></td>
 		</tr>
 		<tr>
 			<td></td>

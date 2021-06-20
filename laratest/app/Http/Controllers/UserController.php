@@ -23,18 +23,35 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function insert(UserRequest $req){
+    public function insert(Request $req){
         $user = new User;
-        $user->username     = $req->username; 
-        $user->name         = $req->name; 
-        $user->cgpa         = $req->cgpa; 
-        $user->password     = $req->password; 
-        $user->type         = 'admin'; 
-        $user->dept         = 'CSE'; 
-        $user->profile_img  = '';
-        $user->save();
+        // $user->username     = $req->username; 
+        // $user->name         = $req->name; 
+        // $user->cgpa         = $req->cgpa; 
+        // $user->password     = $req->password; 
+        // $user->type         = 'admin'; 
+        // $user->dept         = 'CSE'; 
+        // $user->profile_img  = '';
+        // $user->save();
 
-        return redirect()->route('user.list');
+        if($req->hasFile('image')){
+            $file = $req->file('image');
+            // echo "file name: ".$file->getClientOriginalName()."<br>";
+            // echo "file extension: ".$file->getClientOriginalExtension()."<br>";
+            // echo "file Mime Type: ".$file->getType()."<br>";
+            // echo "file Size: ".$file->getSize();
+
+            if($file->move('upload', 'abc.'.$file->getClientOriginalExtension())){
+                echo "success";
+            }else{
+                echo "error..";
+            }
+
+        }else{
+            echo "file not found!";
+        }
+
+        //return redirect()->route('user.list');
     }
 
     public function details($id){
